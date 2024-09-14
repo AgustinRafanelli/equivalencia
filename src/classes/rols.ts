@@ -60,7 +60,7 @@ export class Hechicero extends Rol {
     return 0;
   }
 
-  isExtraordinario() {
+  isExtraordinario(poderMagico: number) {
     return true;
   }
 

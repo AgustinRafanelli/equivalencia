@@ -32,7 +32,7 @@ describe("Hechicero", () => {
   });
 
   it("Debería devolver true siempre en isExtraordinario", () => {
-    expect(hechicero.isExtraordinario()).toBe(true);
+    expect(hechicero.isExtraordinario(50)).toBe(true);
   });
 });
 
