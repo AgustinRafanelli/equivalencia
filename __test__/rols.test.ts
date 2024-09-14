@@ -24,7 +24,7 @@ describe("Hechicero", () => {
   let hechicero: Hechicero;
 
   beforeEach(() => {
-    hechicero = new Hechicero();
+    hechicero = Hechicero.getInstance();
   });
 
   it("Debería devolver 0 como bonus", () => {

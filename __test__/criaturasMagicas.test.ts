@@ -1,4 +1,10 @@
-import { Rol, Guardian, Hechicero, Domador, Mascota } from "../src/classes/rols";
+import {
+  Rol,
+  Guardian,
+  Hechicero,
+  Domador,
+  Mascota,
+} from "../src/classes/rols";
 import { Criatura, Hada, Duende } from "../src/classes/criaturasMagicas";
 
 // Mocking Rol classes
@@ -10,21 +16,23 @@ class MockRol extends Rol {
   isExtraordinario(poderMagico: number): boolean {
     return poderMagico > 50;
   }
+
+  cambiarRol(criatura: Criatura): void {}
 }
 
 describe("Criatura", () => {
   let duende: Duende;
 
   it("Debería cambiar el rol de Hechicero a Guardian", () => {
-    duende = new Duende(60, 40, new Hechicero());
+    duende = new Duende(60, 40, Hechicero.getInstance());
     duende.ritualDeCambioDeRol();
-    expect(duende["rol"]).toBeInstanceOf(Guardian);
+    expect(duende["_rol"]).toBeInstanceOf(Guardian);
   });
 
   it("Debería cambiar el rol de Guardian a Domador", () => {
     duende = new Duende(60, 40, new Guardian());
     duende.ritualDeCambioDeRol();
-    expect(duende["rol"]).toBeInstanceOf(Domador);
+    expect(duende["_rol"]).toBeInstanceOf(Domador);
   });
 
   it("Debería lanzar error al intentar cambiar de Domador a Hechicero sin mascota mágica con cuernos", () => {
@@ -38,7 +46,7 @@ describe("Criatura", () => {
     const mascotaConCuernos = new Mascota(5, true);
     duende = new Duende(60, 40, new Domador([mascotaConCuernos]));
     duende.ritualDeCambioDeRol();
-    expect(duende["rol"]).toBeInstanceOf(Hechicero);
+    expect(duende["_rol"]).toBeInstanceOf(Hechicero);
   });
 });
 

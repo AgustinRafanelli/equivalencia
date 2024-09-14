@@ -17,7 +17,7 @@ describe("Integral", () => {
 
     const roles: Rol[] = [
       new Guardian(),
-      new Hechicero(),
+      Hechicero.getInstance(),
       new Domador([new Mascota(3, true)]), // Domador con mascota mágica con cuernos
       new Domador([new Mascota(2, false)]), // Domador sin mascota mágica
     ];
@@ -60,7 +60,6 @@ describe("Integral", () => {
 
   it("Debería conquistar el castillo si el poder defensivo es menor", () => {
     const castillo = new Castillo(colonia1)
-    console.log(colonia1.colonosFormidables)
     castillo.conquista(colonia2);
     expect(castillo["_colonia"]).toBe(colonia1);
   });

@@ -1,41 +1,34 @@
 import { Rol, Domador, Hechicero, Guardian, Mascota } from "./rols";
 
 export abstract class Criatura {
-  protected poderMagico: number;
-  protected astucia: number;
-  protected rol: Rol;
+  protected _poderMagico: number;
+  protected _astucia: number;
+  protected _rol: Rol;
 
   constructor(poderMagico: number, astucia: number, rol: Rol) {
-    this.poderMagico = poderMagico;
-    this.astucia = astucia;
-    this.rol = rol;
+    this._poderMagico = poderMagico;
+    this._astucia = astucia;
+    this._rol = rol;
+  }
+
+  get rol(): Rol {
+    return this._rol;
+  }
+
+  setRol(rol: Rol){
+    this._rol = rol
   }
 
   getPoderOfensivo(): number {
-    return this.poderMagico * 10 + this.rol.getBonus();
+    return this._poderMagico * 10 + this._rol.getBonus();
   }
 
   isFormidable(): boolean {
-    return this.rol.isExtraordinario(this.poderMagico);
+    return this._rol.isExtraordinario(this._poderMagico);
   }
 
   ritualDeCambioDeRol(): void {
-    if (this.rol instanceof Guardian) {
-      const mascotaNueva = new Mascota(1, false);
-      this.rol = new Domador([mascotaNueva]);
-    } else if (this.rol instanceof Hechicero) {
-      this.rol = new Guardian();
-    } else if (this.rol instanceof Domador) {
-      const mascotaMagicaConCuernos = this.rol.mascotas.find(
-        (mascota) => mascota.cuernos
-      );
-      if (!mascotaMagicaConCuernos) {
-        throw new Error(
-          "Para cambiar de Domador a Hechicero, necesitas al menos una mascota mágica con cuernos."
-        );
-      }
-      this.rol = new Hechicero();
-    }
+    this.rol.cambiarRol(this);
   }
 }
 
@@ -61,15 +54,15 @@ export class Hada extends Criatura {
 
   isFormidable(): boolean {
     return (
-      this.astucia > 50 ||
-      (this.distanciaVuelo > 10 && this.rol.isExtraordinario(this.poderMagico))
+      this._astucia > 50 ||
+      (this.distanciaVuelo > 10 && this._rol.isExtraordinario(this._poderMagico))
     );
   }
 }
 
 export class Duende extends Criatura {
   getPoderOfensivo(): number {
-    return (this.poderMagico * 10 + this.rol.getBonus()) * 1.1;
+    return (this._poderMagico * 10 + this._rol.getBonus()) * 1.1;
   }
 }
 

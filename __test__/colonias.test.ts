@@ -8,11 +8,11 @@ class MockCriatura extends Criatura {
   }
 
   getPoderOfensivo(): number {
-    return this.poderMagico * 10 + this.rol.getBonus();
+    return this._poderMagico * 10 + this.rol.getBonus();
   }
 
   isFormidable(): boolean {
-    return this.poderMagico > 50;
+    return this._poderMagico > 50;
   }
 }
 
@@ -23,6 +23,10 @@ class MockRol extends Rol {
 
   isExtraordinario(poderMagico: number): boolean {
     return poderMagico > 50;
+  }
+
+  cambiarRol(criatura: Criatura): void {
+    
   }
 }
 
